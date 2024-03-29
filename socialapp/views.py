@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import *
+from django.core.mail import send_mail
 
 
 # Create your views here.
@@ -40,3 +41,21 @@ def edit_user(request):
         'user_form': user_form,
     }
     return render(request, 'registration/edit_user.html', context)
+
+
+def ticket(request):
+    sent = False
+    if request.method == "POST":
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            message = f"{cd['name']}\n{cd['email']}\n{cd['phone']}\n\n{cd['message']}"
+            send_mail(cd['subject'], message, 'djangowebsiteperson@gmail.com', ['amir010101developer@gmail.com'], fail_silently=False)
+            sent = True
+    else:
+        form = TicketForm()
+    context = {
+        'form': form,
+        'sent': sent
+    }
+    return render(request, 'forms/ticket.html', context)
