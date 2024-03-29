@@ -29,7 +29,7 @@ def register(request):
 
 
 @login_required
-def edit_account(request):
+def edit_user(request):
     if request.method == 'POST':
         user_form = UserEditForm(request.POST, instance=request.user, files=request.FILES)
         if user_form.is_valid():

@@ -38,12 +38,12 @@ class UserEditForm(forms.ModelForm):
 
     def clean_phone(self):
         phone = self.cleaned_data['phone']
-        if User.objects.exclude().filter(phone=phone).exists():
+        if User.objects.exclude(id=self.instance.id).filter(phone=phone).exists():
             raise forms.ValidationError("phones already exist!")
         return phone
 
     def clean_username(self):
         username = self.cleaned_data['username']
-        if User.objects.exclude().filter(username=username).exists():
+        if User.objects.exclude(id=self.instance.id).filter(username=username).exists():
             raise forms.ValidationError("username already exist!")
         return username
