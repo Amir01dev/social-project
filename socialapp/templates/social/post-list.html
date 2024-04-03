@@ -1,5 +1,7 @@
 {% for post in posts %}
     {{ post.description | truncatewords:20 | linebreaks }}
     Published at {{ post.created }} by {{ post.author }}
+    <br>
+    tags ==> {{ post.tags.all | join:', ' }}
     <br><br>
 {% endfor %}
