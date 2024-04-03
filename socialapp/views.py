@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import *
+from .models import *
 from django.core.mail import send_mail
 
 
@@ -59,3 +60,11 @@ def ticket(request):
         'sent': sent
     }
     return render(request, 'forms/ticket.html', context)
+
+
+def post_list(request):
+    posts = Post.objects.all()
+    context = {
+        'posts': posts
+    }
+    return render(request, "social/post-list.html", context)
