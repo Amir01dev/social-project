@@ -13,6 +13,7 @@ urlpatterns = [
     path('register', views.register, name="register"),
     path('user/edit', views.edit_user, name="edit_account"),
     path('ticket', views.ticket, name="ticket"),
+
     path('password-change/', auth_views.PasswordChangeView.as_view(success_url='done'), name="password_change"),
     path('password-change/done/', auth_views.PasswordChangeDoneView.as_view(), name="password-change_done"),
     # url to reset password
@@ -20,5 +21,8 @@ urlpatterns = [
     path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
     path('password-reset/confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(success_url='/password_reset/complete/'), name="password_reset_confirm"),
     path('password-reset/complete/', auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
-    path('posts/', views.post_list, name="post_list")
+
+    path('posts/', views.post_list, name="post_list"),
+    path('posts/post/<slug:tag_slug>', views.post_list, name="post_list_by_tag"),
+    path('posts/create-post/', views.create_post, name="create_post"),
 ]
